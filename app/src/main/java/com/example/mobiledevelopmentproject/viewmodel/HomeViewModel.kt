@@ -8,9 +8,11 @@ import com.example.mobiledevelopmentproject.repository.MovieRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import com.example.mobiledevelopmentproject.BuildConfig
+
 
 class HomeViewModel : ViewModel() {
-    private val apiKey = "3945b26c802bbcc0b6e70aff903cde68"
+    private val apiKey = BuildConfig.TMDB_API_KEY
 
     private val repository = MovieRepository()
 
@@ -27,7 +29,7 @@ class HomeViewModel : ViewModel() {
     val isLoading: StateFlow<Boolean> = _isLoading
 
     init {
-        fetchMovies()
+      fetchMovies()
     }
 
     private fun fetchMovies() {

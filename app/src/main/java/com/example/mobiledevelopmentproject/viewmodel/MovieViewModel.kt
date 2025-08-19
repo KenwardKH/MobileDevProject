@@ -3,6 +3,7 @@ package com.example.mobiledevelopmentproject.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobiledevelopmentproject.BuildConfig
 import com.example.mobiledevelopmentproject.data.model.Movie
 import com.example.mobiledevelopmentproject.repository.MovieRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,6 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MovieViewModel : ViewModel() {
+
+    private val apiKey = BuildConfig.TMDB_API_KEY
+
     private val repository = MovieRepository()
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
     private val _searchQuery = MutableStateFlow("")
@@ -26,7 +30,7 @@ class MovieViewModel : ViewModel() {
     private fun getPopularMovies(){
         viewModelScope.launch {
             try {
-                val response = repository.getPopularMovies("3945b26c802bbcc0b6e70aff903cde68")
+                val response = repository.getPopularMovies(apiKey)
                 _movies.value = response.results
             } catch (e: Exception){
                 Log.e("MovieViewModel", "Error: ${e.message}")

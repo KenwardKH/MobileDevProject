@@ -16,6 +16,9 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        val tmdbApiKey: String = project.findProperty("TMDB_API_KEY") as String? ?: ""
+        buildConfigField("String", "TMDB_API_KEY", "\"$tmdbApiKey\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
